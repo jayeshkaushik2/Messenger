@@ -1,0 +1,100 @@
+{% extends 'layout.html' %}
+{% block title %} Messenger {% endblock title %}
+
+{% block body %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+</script>
+<div class="container">
+    <div class="header">
+        <div class="profileimg"></div>
+        <h1>Messenger</h1>
+    </div>
+    <div class="sidepanel">
+        <!-- header-[profileimg], searchbar, phonenumbers[list of numbers] -->
+        <form action="/checkview" method="post">
+            {% csrf_token %}
+            <div class="searchbar">
+                <input name="roomname" type="text" placeholder="Search chat room" class="search">
+                <input name="username" type="text" placeholder="Username" class="search">
+                <button class="addToRoombtn" type="submit">Add to room</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="mainpanel">
+        <!-- header1[profileimg of the person, name of person] displayarea[display msg with time], textarea[inupt, sendbtn] -->
+        <div class="displayarea" id="displayarea">
+            <!-- <div class="msg"> -->
+            <!-- <p>this is message <sub>12:08 am</sub></p> -->
+            <!-- </div> -->
+        </div>
+        <script>
+            function updateScroll() {
+                var element = document.getElementById("displayarea");
+                element.scrollTop = element.scrollHeight;
+            }
+
+            $(document).ready(function () {
+
+                setInterval(function () {
+                    $.ajax({
+                        type: 'GET',
+                        url: "/getMessages/{{room}}/",
+                        success: function (response) {
+                            console.log(response);
+                            $("#displayarea").empty();
+                            for (var key in response.messages) {
+                                var temp = "<div class='msg'>" + "<p>" + "<b>" + response.messages[key].user + "<br>" + "</b>" + response.messages[key].value + "<sub>" + response.messages[key].date + "</sub></p></div>";
+                                $("#displayarea").append(temp);
+                                setInterval(updateScroll,100);
+                            }
+                        },
+                        error: function (response) {
+                            // alert('An error occured')
+                        }
+                    });
+                }, 1000);
+            })
+        </script>
+
+        <div class="textarea">
+            <form id="post-form">
+                {% csrf_token %}
+                <input type="text" name="message" id="message" placeholder="Type a message" autocomplete="off"
+                    class="typemsg">
+                <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}">
+                <input type="hidden" name="username" id="username" value="{{username}}">
+                <button class="sendbtn" type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+</div>
+
+<script type="text/javascript">
+    $(document).on('submit', '#post-form', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: '/send',
+            data: {
+                username: $('#username').val(),
+                room_id: $('#room_id').val(),
+                message: $('#message').val(),
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            },
+            success: function (data) {
+                // alert(data)
+            }
+        });
+        document.getElementById('message').value = ''
+    });
+</script>
+
+{% endblock body %}

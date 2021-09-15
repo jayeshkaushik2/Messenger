@@ -1,0 +1,136 @@
+.container {
+    background-image: url(/static/img/backwall.jpg);
+    width: 100vw;
+    height: 100vh;
+}
+
+
+.header {
+    background-color: lightgrey;
+    width: 100%;
+    height: 47px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.header h1 {
+    margin: auto;
+    position: relative;
+    display: table;
+}
+
+
+.sidepanel {
+    background-color: white;
+    height: 91vh;
+    width: 30%;
+    float: left;
+}
+
+.profileimg {
+    width: 50px;
+    height: 50px;
+    background-image: url(/static/img/head.gif);
+    background-size: cover;
+    float: left;
+    margin-left: 10px;
+}
+
+.searchbar {
+    margin-top: 0px;
+    background-color: #e6e6e6;
+    width: 100%;
+    height: 120px;
+    padding-top: 7px;
+}
+
+.search {
+    margin: auto;
+    outline: none;
+    border: none;
+    border-radius: 40px;
+    width: 90%;
+    height: 30px;
+    font-size: 15px;
+    padding: 1px;
+    padding-left: 10px;
+    position: relative;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.addToRoombtn {
+    margin: auto;
+    display: block;
+    width: 90%;
+    padding: 4px;
+    background: none;
+    border-radius: 4px;
+}
+
+.addToRoombtn:hover {
+    background-color: aqua;
+}
+
+.mainpanel {
+    width: 70%;
+    height: 80vh;
+    float: left;
+}
+
+.displayarea {
+    width: 100%;
+    height: 104%;
+    position: inherit;
+    display: block;
+    overflow-y: auto;
+    margin: 0px;
+
+}
+
+.msg b{
+    color: #00d4d4;
+}
+
+.msg p {
+    background-color: white;
+    border-radius: 5px;
+    padding: 8px;
+    margin-left: 20px;
+    width: fit-content;
+    height: fit-content;
+    margin-right: 20px;
+}
+
+.msg sub {
+    font-size: 11px;
+    color: rgb(179, 179, 179);
+    margin-left: 9px;
+}
+
+.textarea {
+    background-color: #e6e6e6;
+    bottom: 0px;
+    position: fixed;
+    width: 100%;
+    height: 55px;
+}
+
+.typemsg {
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    width: 60%;
+    font-size: 15px;
+    padding-left: 10px;
+    height: 40px;
+    float: left;
+    margin-left: 51px;
+    margin-top: 5px;
+}
+
+.sendbtn {
+    margin-left: 10px;
+    margin-top: 17px;    
+}
+
